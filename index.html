@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="styles">
+    </head>
+    <body>
+        <h1>Verify with EnigmaOTP</h1>
+        <img id="qr-image">
+        <p id="test"></p>
+        <input id="input-field" type="text" placeholder="Enter OTP"/>
+    </body>
+    <script>
+        function refresh() {
+           fetch('/gen')
+            .then(response => response.json())
+            .then(data => document.getElementById('qr-image').setAttribute("src", data['path']));
+        }
+
+        refresh(); // run at startup
+        window.setInterval(function(){
+          refresh(); // run every 10 secs
+        }, 10000);
+    </script>
+</html>
